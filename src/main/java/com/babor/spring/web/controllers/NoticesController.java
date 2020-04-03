@@ -2,15 +2,21 @@ package com.babor.spring.web.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpSession;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Map;
 
 @Controller
 public class NoticesController {
 
     @RequestMapping("/")
-    public String showHome(HttpSession session) {
-        session.setAttribute("name", "Shofiullah Babor");
-        return "home";
+    public ModelAndView showHome() {
+        ModelAndView mv = new ModelAndView("home");
+
+        Map<String, Object> model = mv.getModel();
+        model.put("name", "jhon doe");
+
+        return mv;
     }
 
 }

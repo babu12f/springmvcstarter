@@ -2,11 +2,13 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Insert title here</title>
+    <title>Spring-mvc start</title>
 </head>
 <body>
-    Hello World!!! spring in action
     <h2>
-        <%= session.getAttribute("name") %>
+        <%= request.getAttribute("name") %>
+    </h2>
+    <h2>
+        using expression language: ${name}
     </h2>
 </body>
