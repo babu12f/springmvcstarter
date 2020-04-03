@@ -6,4 +6,7 @@
 </head>
 <body>
     Hello World!!! spring in action
+    <h2>
+        <%= session.getAttribute("name") %>
+    </h2>
 </body>
