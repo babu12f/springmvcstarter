@@ -20,7 +20,7 @@ public class NoticesDAO {
         System.out.println("creating notice dao");
     }
 
-//    @Autowired
+    @Autowired
     public NoticesDAO(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
