@@ -1,7 +1,6 @@
 package com.babor.spring.web.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.Component;
@@ -16,9 +15,9 @@ import java.util.List;
 public class NoticesDAO {
     private NamedParameterJdbcTemplate jdbc;
 
-    public NoticesDAO() {
-        System.out.println("creating notice dao");
-    }
+//    public NoticesDAO() {
+//        System.out.println("creating notice dao");
+//    }
 
     @Autowired
     public NoticesDAO(DataSource dataSource) {
