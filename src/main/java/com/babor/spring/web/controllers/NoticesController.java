@@ -19,14 +19,19 @@ public class NoticesController {
         this.noticesService = noticesService;
     }
 
-    @RequestMapping("/")
-    public String showHome(Model model) {
+    @RequestMapping("/notices")
+    public String showNotice(Model model) {
 
         List<Notice> notices = noticesService.getCurrent();
 
         model.addAttribute("notices", notices);
 
-        return "home";
+        return "notices";
+    }
+
+    @RequestMapping("/createnotice")
+    public String createNotice(Model model) {
+        return "createnotice";
     }
 
 }
