@@ -37,8 +37,12 @@ public class NoticesController {
     }
 
     @RequestMapping("/createnotice")
-    public String createNotice(Model model) {
+    public String createNotice() {
         return "createnotice";
     }
 
+    @RequestMapping("/docreate")
+    public String doCreate() {
+        return "noticecreated";
+    }
 }

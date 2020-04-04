@@ -4,6 +4,27 @@
     <title>Create Notice</title>
 </head>
 <body>
-    <h2>Create Notice</h2>
+    <form method="get" action="${pageContext.request.contextPath}/docreate">
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input name="name" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input name="email" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Notice:</td>
+                <td><textarea rows="10" cols="10" name="text"></textarea></td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input name="CreateNotice" type="Submit"></td>
+            </tr>
+
+        </table>
+    </form>
+
 </body>
 </html>
