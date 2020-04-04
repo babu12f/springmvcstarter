@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Create Notice</title>
@@ -8,7 +8,7 @@
 <body>
 <div class="container">
     <div class="col-md-8 col-md-offset-2">
-        <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/docreate">
+        <sf:form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/docreate" commandName="notice">
             <fieldset>
                 <!-- Form Name -->
                 <legend>Create Notice</legend>
@@ -17,8 +17,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="name">Name</label>
                     <div class="col-md-4">
-                        <input id="name" name="name" type="text" placeholder="Enter Your Name"
-                               class="form-control input-md">
+                        <sf:input id="name" path="name" name="name" type="text" placeholder="Enter Your Name"
+                               class="form-control input-md" />
                     </div>
                 </div>
 
@@ -26,8 +26,8 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="email">Email</label>
                     <div class="col-md-4">
-                        <input id="email" name="email" type="text" placeholder="Enter Your Email"
-                               class="form-control input-md">
+                        <sf:input path="email" id="email" name="email" type="text" placeholder="Enter Your Email"
+                               class="form-control input-md" />
                     </div>
                 </div>
 
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="text">Notice</label>
                     <div class="col-md-4">
-                        <textarea class="form-control" id="text" name="text"></textarea>
+                        <sf:textarea path="text" class="form-control" id="text" name="text" />
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@
                 </div>
 
             </fieldset>
-        </form>
+        </sf:form>
     </div>
 </div>
 </body>
