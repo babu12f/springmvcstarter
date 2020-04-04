@@ -4,7 +4,7 @@
     <title>Create Notice</title>
 </head>
 <body>
-    <form method="get" action="${pageContext.request.contextPath}/docreate">
+    <form method="post" action="${pageContext.request.contextPath}/docreate">
         <table>
             <tr>
                 <td>Name:</td>
