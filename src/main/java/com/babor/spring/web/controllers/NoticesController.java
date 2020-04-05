@@ -54,6 +54,8 @@ public class NoticesController {
             return "createnotice";
         }
 
+        noticesService.createNotice(notice);
+
         return "noticecreated";
     }
 }

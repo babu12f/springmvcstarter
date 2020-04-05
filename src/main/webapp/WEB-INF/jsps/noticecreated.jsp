@@ -4,6 +4,6 @@
     <title>Notice Created</title>
 </head>
 <body>
-    notice created successfully
+    notice created successfully <a href="${pageContext.request.contextPath}/notices">current notices</a>
 </body>
 </html>
