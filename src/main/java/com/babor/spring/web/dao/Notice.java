@@ -1,8 +1,8 @@
 package com.babor.spring.web.dao;
 
+import com.babor.spring.web.validation.ValidEmail;
+
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class Notice {
@@ -12,7 +12,7 @@ public class Notice {
     private String name;
 
     @NotNull
-    @Pattern(regexp = ".*\\@.*\\..*", message = "Not a valid email address")
+    @ValidEmail
     private String email;
 
     @Size(min = 20, max = 255, message = "Notice must be between 20 and 255 characters")
