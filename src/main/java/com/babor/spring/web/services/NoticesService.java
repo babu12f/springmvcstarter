@@ -23,4 +23,8 @@ public class NoticesService {
     public void createNotice(Notice notice) {
         noticesDAO.createNotice(notice);
     }
+
+    public void throwTestException() {
+        noticesDAO.getNoticeById(999999);
+    }
 }
