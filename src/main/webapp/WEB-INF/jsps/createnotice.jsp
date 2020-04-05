@@ -19,6 +19,7 @@
                     <div class="col-md-4">
                         <sf:input id="name" path="name" name="name" type="text" placeholder="Enter Your Name"
                                class="form-control input-md" />
+                        <sf:errors path="name" cssClass="alert-danger"/>
                     </div>
                 </div>
 
@@ -28,6 +29,7 @@
                     <div class="col-md-4">
                         <sf:input path="email" id="email" name="email" type="text" placeholder="Enter Your Email"
                                class="form-control input-md" />
+                        <sf:errors path="email" cssClass="alert-danger"/>
                     </div>
                 </div>
 
@@ -36,6 +38,7 @@
                     <label class="col-md-4 control-label" for="text">Notice</label>
                     <div class="col-md-4">
                         <sf:textarea path="text" class="form-control" id="text" name="text" />
+                        <sf:errors path="text" cssClass="alert-danger" />
                     </div>
                 </div>
 
