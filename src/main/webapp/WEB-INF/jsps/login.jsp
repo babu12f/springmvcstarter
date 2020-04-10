@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <title>Login To Spring</title>
     <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 </head>
-<body>
+<body onload="document.f.j_username.focus()">
 
 <div class="container">
     <div class="col-md-6 col-md-offset-3">
@@ -33,6 +34,12 @@
 
                     </div>
                 </div>
+
+                <c:if test="${param.error}">
+                    <div class="alert-danger">
+                        <span>Incorrect Username or Password</span>
+                    </div>
+                </c:if>
 
                 <!-- Button -->
                 <div class="form-group">
