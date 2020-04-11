@@ -29,7 +29,7 @@
                     <div class="col-md-4">
                         <sf:input path="email" id="email" name="email" type="text" placeholder="Enter Your Email"
                                class="form-control input-md" />
-                        <sf:errors path="email" cssClass="alert-danger"/>
+                        <sf:errors path="email"  cssClass="alert-danger"/>
                     </div>
                 </div>
 

@@ -12,4 +12,7 @@
     <p>
         <a href="${pageContext.request.contextPath}/createnotice">Create New Notice</a>
     </p>
+    <p>
+        <a href="<c:url value="/createaccount"/>">Create New Account</a>
+    </p>
 </body>
