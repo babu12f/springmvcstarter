@@ -3,6 +3,7 @@ package com.babor.spring.web.controllers;
 import com.babor.spring.web.dao.User;
 import com.babor.spring.web.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +33,7 @@ public class LoginController {
     }
 
     @RequestMapping( value = "/createaccount", method = RequestMethod.POST)
-    public String doCreateAccount(Model model, @Valid User user, BindingResult result) {
+    public String doCreateAccount(@Valid User user, BindingResult result) {
 
         if( result.hasErrors() ) {
             return "createaccount";
@@ -41,7 +42,23 @@ public class LoginController {
         user.setAuthority("user");
         user.setEnabled(true);
 
-        userService.createNotice(user);
+        /**
+         * second Approach
+         * */
+        if (userService.exists(user.getUsername())) {
+            result.rejectValue("username", "DuplicateKey.user.username", "This username already exists");
+            return "createaccount";
+        }
+
+        /**
+         * Check Duplicate Username --> First Approach (Using try catch) NOTE: not relaiable
+         * */
+        try {
+            userService.createUser(user);
+        } catch (DuplicateKeyException ex) {
+            result.rejectValue("username", "DuplicateKey.user.username", "This username already exists");
+            return "createaccount";
+        }
 
         return "accountcreated";
     }

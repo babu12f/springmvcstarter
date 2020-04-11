@@ -14,7 +14,11 @@ public class UserService {
         this.userDAO = userDAO;
     }
 
-    public void createNotice(User user) {
+    public void createUser(User user) {
         userDAO.createUser(user);
+    }
+
+    public boolean exists(String username) {
+        return userDAO.exists(username);
     }
 }
