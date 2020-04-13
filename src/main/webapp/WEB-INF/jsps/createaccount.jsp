@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"  %>
 <html>
 <head>
     <title>Create Account</title>
@@ -75,7 +76,7 @@
     var password2 = document.getElementById('confirmPassword');
     var checkPasswordValidity = function () {
         if (password1.value != password2.value) {
-            password1.setCustomValidity('Passwords must match.');
+            password1.setCustomValidity('<fmt:message key="passwords.must.match"/>');
         } else {
             password1.setCustomValidity('');
         }
