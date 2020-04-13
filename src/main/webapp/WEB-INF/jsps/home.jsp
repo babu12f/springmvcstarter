@@ -19,4 +19,5 @@
         <a href="<c:url value="/logout"/>">Logout</a>
 <%--        <a href="<c:url value="/j_spring_security_logout"/>">Logout</a> default logout_url--%>
     </p>
+    <p><a href="<c:url value="/admin"/>">Admin page</a></p>
 </body>
