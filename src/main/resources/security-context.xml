@@ -20,6 +20,7 @@
 
     <security:http use-expressions="true">
         <security:form-login login-page="/login" authentication-failure-url="/login?error=true"/>
+        <security:logout logout-success-url="/" logout-url="/logout"/>
         <security:intercept-url pattern="/createnotice" access="isAuthenticated()"/>
         <security:intercept-url pattern="/docreate" access="isAuthenticated()"/>
         <security:intercept-url pattern="/createaccount" access="permitAll()"/>

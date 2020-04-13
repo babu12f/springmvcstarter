@@ -15,4 +15,8 @@
     <p>
         <a href="<c:url value="/createaccount"/>">Create New Account</a>
     </p>
+    <p>
+        <a href="<c:url value="/logout"/>">Logout</a>
+<%--        <a href="<c:url value="/j_spring_security_logout"/>">Logout</a> default logout_url--%>
+    </p>
 </body>
