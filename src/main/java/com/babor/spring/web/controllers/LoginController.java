@@ -46,7 +46,7 @@ public class LoginController {
          * second Approach
          * */
         if (userService.exists(user.getUsername())) {
-            result.rejectValue("username", "DuplicateKey.user.username", "This username already exists");
+            result.rejectValue("username", "DuplicateKey.user.username");
             return "createaccount";
         }
 
@@ -56,7 +56,7 @@ public class LoginController {
         try {
             userService.createUser(user);
         } catch (DuplicateKeyException ex) {
-            result.rejectValue("username", "DuplicateKey.user.username", "This username already exists");
+            result.rejectValue("username", "DuplicateKey.user.username");
             return "createaccount";
         }
 

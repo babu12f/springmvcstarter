@@ -7,17 +7,16 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class User {
-    @NotBlank(message="Username cannot be blank")
-    @Size(min=4, max=15, message="Username must be betweeen 4 and 15 characters long.")
-    @Pattern(regexp="^\\w{4,}$", message="Username can only consist of numbers, letters and underscore")
+    @NotBlank
+    @Size(min=4, max=15)
+    @Pattern(regexp="^\\w{4,}$")
     private String username;
 
-    @NotBlank(message="Password cannot be blank.")
-    @Pattern(regexp="^\\S+$", message="Password cannot contain spaces.")
-    @Size(min=4, max=15, message="Password must be between 8 and 15 characters")
+    @Pattern(regexp="^\\S+$")
+    @Size(min=4)
     private String password;
 
-    @ValidEmail(message="This does not seem a valid email")
+    @ValidEmail
     private String email;
 
     private boolean enabled = false;

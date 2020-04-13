@@ -16,4 +16,7 @@
     </bean>
 
     <mvc:resources location="classpath:/asset/" mapping="/resources/**"/>
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="lang.message"/>
+    </bean>
 </beans>
