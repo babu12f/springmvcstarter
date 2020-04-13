@@ -7,48 +7,51 @@
 </head>
 <body>
 <div class="container">
-    <div class="col-md-8 col-md-offset-2">
-        <sf:form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/createaccount" commandName="user">
+    <div class="col-md-10 col-md-offset-1">
+        <sf:form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/createaccount"
+                 commandName="user">
             <fieldset>
                 <!-- Form Name -->
                 <legend>Create Notice</legend>
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="username">Username</label>
+                    <label class="col-md-4 control-label" for="username">Username : </label>
                     <div class="col-md-4">
-                        <sf:input id="username" path="username" name="username" type="text" placeholder="Enter Your Username"
-                               class="form-control input-md" />
+                        <sf:input id="username" path="username" name="username" type="text"
+                                  placeholder="Enter Your Username"
+                                  class="form-control input-md"/>
                         <sf:errors path="username" cssClass="alert-danger"/>
                     </div>
                 </div>
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="email">Email</label>
+                    <label class="col-md-4 control-label" for="email">Email : </label>
                     <div class="col-md-4">
                         <sf:input path="email" id="email" name="email" type="text" placeholder="Enter Your Email"
-                               class="form-control input-md" />
-                        <sf:errors path="email"  cssClass="alert-danger"/>
+                                  class="form-control input-md"/>
+                        <sf:errors path="email" cssClass="alert-danger"/>
                     </div>
                 </div>
 
                 <!-- Password input -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="password">Password</label>
+                    <label class="col-md-4 control-label" for="password">Password : </label>
                     <div class="col-md-4">
                         <sf:password id="password" path="password" name="password" placeholder="Enter Your Password"
-                                     class="form-control input-md" />
+                                     class="form-control input-md"/>
                         <sf:errors path="password" cssClass="alert-danger"/>
                     </div>
                 </div>
 
                 <!-- Password input -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="confirmPassword">Confirm Password</label>
+                    <label class="col-md-4 control-label" for="confirmPassword">Confirm Password : </label>
                     <div class="col-md-4">
-                        <input id="confirmPassword" path="confirmPassword" name="confirmPassword" type="password" placeholder="Re-Enter Your Passweord"
-                                     class="form-control input-md" />
+                        <input id="confirmPassword" name="confirmPassword" type="password"
+                               placeholder="Re-Enter Your Password"
+                               class="form-control input-md"/>
                     </div>
                 </div>
 
@@ -66,5 +69,27 @@
         </sf:form>
     </div>
 </div>
+
+<script>
+    var password1 = document.getElementById('password');
+    var password2 = document.getElementById('confirmPassword');
+    var checkPasswordValidity = function () {
+        if (password1.value != password2.value) {
+            password1.setCustomValidity('Passwords must match.');
+        } else {
+            password1.setCustomValidity('');
+        }
+    };
+    password1.addEventListener('change', checkPasswordValidity, false);
+    password2.addEventListener('change', checkPasswordValidity, false);
+    var form = document.getElementById('user');
+    form.addEventListener('submit', function (e) {
+        checkPasswordValidity();
+        if (!this.checkValidity()) {
+            e.preventDefault();
+            password1.focus();
+        }
+    }, false);
+</script>
 </body>
 </html>

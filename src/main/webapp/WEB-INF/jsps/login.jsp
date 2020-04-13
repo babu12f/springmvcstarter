@@ -8,7 +8,7 @@
 <body onload="document.f.j_username.focus()">
 
 <div class="container">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-10 col-md-offset-1">
         <form class="form-horizontal" name='f' action='${pageContext.request.contextPath}/j_spring_security_check' method='POST'>
             <fieldset>
 
