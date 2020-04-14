@@ -14,7 +14,7 @@
         </security:authentication-provider>
 
         <security:authentication-provider>
-            <security:jdbc-user-service
+            <security:jdbc-user-service id="jdbcUserService"
                     data-source-ref="dataSource"
                     authorities-by-username-query="select username, authority from authorities where binary username = ?"
                     users-by-username-query="select username, password, enabled from users where binary username = ?"/>
@@ -26,6 +26,7 @@
     <security:http use-expressions="true">
 <!--        <security:access-denied-handler ref="myAccessDeniedHandler"/>-->
         <security:access-denied-handler error-page="/denied"/>
+        <security:remember-me key="myAppKey" user-service-ref="jdbcUserService"/>
         <security:form-login login-page="/login" authentication-failure-url="/login?error=true"/>
         <security:logout logout-success-url="/" logout-url="/logout"/>
         <security:intercept-url pattern="/admin" access="permitAll"/>

@@ -35,6 +35,16 @@
                     </div>
                 </div>
 
+                <!-- Multiple Checkboxes (inline) -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="_spring_security_remember_me">Remember me : </label>
+                    <div class="col-md-4">
+                        <label class="checkbox-inline" for="_spring_security_remember_me">
+                            <input type="checkbox" checked="checked" name="_spring_security_remember_me" id="_spring_security_remember_me">
+                        </label>
+                    </div>
+                </div>
+
                 <c:if test="${param.error}">
                     <div class="alert-danger">
                         <span>Incorrect Username or Password</span>
