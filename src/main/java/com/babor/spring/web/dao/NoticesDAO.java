@@ -15,9 +15,8 @@ import java.util.List;
 public class NoticesDAO {
     private NamedParameterJdbcTemplate jdbc;
 
-//    public NoticesDAO() {
-//        System.out.println("creating notice dao");
-//    }
+    public NoticesDAO() {
+    }
 
     @Autowired
     public NoticesDAO(DataSource dataSource) {
