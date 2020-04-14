@@ -5,6 +5,8 @@ import com.babor.spring.web.dao.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("userService")
 public class UserService {
     private UserDAO userDAO;
@@ -20,5 +22,9 @@ public class UserService {
 
     public boolean exists(String username) {
         return userDAO.exists(username);
+    }
+
+    public List<User> getAllUser() {
+        return userDAO.getAll();
     }
 }
