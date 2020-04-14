@@ -24,7 +24,7 @@
     </sec:authorize>
     <%--        <a href="<c:url value="/j_spring_security_logout"/>">Logout</a> default logout_url--%>
 
-    <sec:authorize access="hasRole('admin')">
+    <sec:authorize access="hasRole('ROLE_ADMIN')">
         <p><a href="<c:url value="/admin"/>">Admin page</a></p>
     </sec:authorize>
 </div>

@@ -3,6 +3,7 @@ package com.babor.spring.web.services;
 import com.babor.spring.web.dao.Notice;
 import com.babor.spring.web.dao.NoticesDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class NoticesService {
         return noticesDAO.getNotices();
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     public void createNotice(Notice notice) {
         noticesDAO.createNotice(notice);
     }
