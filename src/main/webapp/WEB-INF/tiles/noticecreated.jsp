@@ -1,0 +1,1 @@
+notice created successfully <a href="${pageContext.request.contextPath}/notices">current notices</a>

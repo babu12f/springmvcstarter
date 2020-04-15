@@ -5,6 +5,8 @@
     <title><tiles:getAsString name="title"/></title>
     <link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" type="text/css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
 
@@ -14,7 +16,7 @@
         <tiles:insertAttribute name="content"/>
     </div>
 
-    <div class="container">
+    <div>
         <tiles:insertAttribute name="footer"/>
     </div>
 
