@@ -9,14 +9,16 @@
        http://www.springframework.org/schema/jee  http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
-    <context:annotation-config />
+    <context:annotation-config/>
     <context:component-scan base-package="com.babor.spring.web.dao"/>
 
-    <jee:jndi-lookup id="dataSource" jndi-name="jdbc/TestDB" expected-type="javax.sql.DataSource"/>
+    <beans profile="production">
+        <jee:jndi-lookup id="dataSource" jndi-name="jdbc/TestDB" expected-type="javax.sql.DataSource"/>
 
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+        <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSource"/>
+        </bean>
 
-    <tx:annotation-driven/>
+        <tx:annotation-driven/>
+    </beans>
 </beans>
