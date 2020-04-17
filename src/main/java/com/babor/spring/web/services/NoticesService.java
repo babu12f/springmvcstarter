@@ -55,12 +55,21 @@ public class NoticesService {
             Notice n = noticesDAO.getNoticeById(notice.getId());
 
             if (! n.getUsername().equals(principal.getName())) {
-                throw new AccessDeniedException("Your have not permission to delete resources");
+                throw new AccessDeniedException("Your have not permission to Update resources");
             }
             noticesDAO.updateNotice(notice);
         }
         else {
             noticesDAO.createNotice(notice);
         }
+    }
+
+    public void deleteNotice(Notice notice, Principal principal) {
+        Notice n = noticesDAO.getNoticeById(notice.getId());
+
+        if (! n.getUsername().equals(principal.getName())) {
+            throw new AccessDeniedException("Your have not permission to delete resources");
+        }
+        noticesDAO.deleteNoticeById(notice.getId());
     }
 }

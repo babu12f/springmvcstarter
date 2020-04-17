@@ -55,15 +55,25 @@ public class NoticesController {
     }
 
     @RequestMapping(value = "/docreate", method = RequestMethod.POST)
-    public String doCreate(Model model, @Valid Notice notice, BindingResult result, Principal logedInUser) {
+    public String doCreate(Model model, @Valid Notice notice, BindingResult result, Principal logedInUser,
+                           @RequestParam(value = "delete", required = false) String delete) {
 
         if( result.hasErrors() ) {
             return "createnotice";
         }
 
-        notice.getUser().setUsername(logedInUser.getName());
+        if (delete == null) {
+            // User want to create or update
+            notice.getUser().setUsername(logedInUser.getName());
 
-        noticesService.createOrUpdateNotice(notice, logedInUser);
+            noticesService.createOrUpdateNotice(notice, logedInUser);
+        }
+        else {
+            // User want to delete notice
+            noticesService.deleteNotice(notice, logedInUser);
+
+            return "redirect:/";
+        }
 
         return "noticecreated";
     }
