@@ -56,7 +56,16 @@ public class NoticesDAOTests extends  BaseTests {
 
         assertEquals("Updated notice should match retrieved updated notice", notice, updated);
 
-        noticesDAO.deleteNoticeById(notice.getId());
+        Notice notice2 = new Notice(user, "This is a test notice. Hello from test notice.");
+
+        assertTrue("Notice crecation should return true", noticesDAO.createNotice(notice2));
+
+        List<Notice> userNotices = noticesDAO.getNoticeByUsername(user.getUsername());
+
+        assertEquals("Should be two notices for user.", 2, userNotices.size());
+
+        noticesDAO.deleteNoticeById(userNotices.get(0).getId());
+        noticesDAO.deleteNoticeById(userNotices.get(1).getId());
 
         List<Notice> empty = noticesDAO.getNotices();
 

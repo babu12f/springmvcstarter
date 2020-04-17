@@ -1,14 +1,11 @@
 package com.babor.spring.web.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @Component("noticeDao")
@@ -38,50 +35,28 @@ public class NoticesDAO {
 
     public List<Notice> getNotices() {
 
-        return jdbc.query("select * from notices, users, authorities where users.username=notices.username and users.username=authorities.username and users.enabled=true", new RowMapper<Notice>() {
+        String sql = "select * from notices, users, authorities where users.username=notices.username " +
+                "and users.username=authorities.username and users.enabled=true";
 
-            public Notice mapRow(ResultSet resultSet, int i) throws SQLException {
-                User user = new User();
-                user.setUsername(resultSet.getString("username"));
-                user.setName(resultSet.getString("name"));
-                user.setEmail(resultSet.getString("email"));
-                user.setEnabled(true);
-                user.setAuthority(resultSet.getString("authority"));
-
-                Notice notice = new Notice();
-                notice.setId(resultSet.getInt("id"));
-                notice.setText(resultSet.getString("text"));
-                notice.setUser(user);
-
-                return notice;
-            }
-
-        });
+        return jdbc.query(sql,new NoticeRowMapper());
     }
 
     public Notice getNoticeById(int id) {
 
         MapSqlParameterSource params = new MapSqlParameterSource("id", id);
 
-        return jdbc.queryForObject("select * from notices, users, authorities where users.username=notices.username and users.username=authorities.username and users.enabled=true and notices.id = :id", params, new RowMapper<Notice>() {
+        String sql = "select * from notices, users, authorities where users.username=notices.username " +
+                "and users.username=authorities.username and users.enabled=true and notices.id = :id";
 
-            public Notice mapRow(ResultSet resultSet, int i) throws SQLException {
-                User user = new User();
-                user.setUsername(resultSet.getString("username"));
-                user.setName(resultSet.getString("name"));
-                user.setEmail(resultSet.getString("email"));
-                user.setEnabled(true);
-                user.setAuthority(resultSet.getString("authority"));
+        return jdbc.queryForObject(sql, params, new NoticeRowMapper());
+    }
 
-                Notice notice = new Notice();
-                notice.setId(resultSet.getInt("id"));
-                notice.setText(resultSet.getString("text"));
-                notice.setUser(user);
+    public List<Notice> getNoticeByUsername(String username) {
 
-                return notice;
-            }
+        String sql = "select * from notices, users, authorities where users.username=notices.username " +
+                "and users.username=authorities.username and users.enabled=true and notices.username = :username";
 
-        });
+        return jdbc.query(sql, new MapSqlParameterSource("username", username), new NoticeRowMapper());
     }
 
     public boolean updateNotice(Notice notice) {
