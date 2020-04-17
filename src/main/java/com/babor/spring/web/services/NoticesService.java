@@ -29,4 +29,14 @@ public class NoticesService {
     public void throwTestException() {
         noticesDAO.getNoticeById(999999);
     }
+
+    public boolean hasNotices(String username) {
+        if (username == null) return false;
+
+        List<Notice> notices = noticesDAO.getNoticeByUsername(username);
+
+        if (notices.size() == 0) return false;
+
+        return true;
+    }
 }
