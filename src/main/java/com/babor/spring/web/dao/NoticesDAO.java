@@ -27,26 +27,31 @@ public class NoticesDAO {
     public int[] createNotice(List<Notice> notices) {
         SqlParameterSource[] params = SqlParameterSourceUtils.createBatch(notices.toArray());
 
-        return jdbc.batchUpdate("insert into notices (id, name, email, text) values (:id, :name, :email, :text)", params);
+        return jdbc.batchUpdate("insert into notices (username text) values (:username, :text)", params);
     }
 
     public boolean createNotice(Notice notice) {
         BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(notice);
 
-        return jdbc.update("insert into notices (name, email, text) values (:name, :email, :text)", params) == 1;
+        return jdbc.update("insert into notices (username, text) values (:username, :text)", params) == 1;
     }
 
     public List<Notice> getNotices() {
 
-        return jdbc.query("select * from notices", new RowMapper<Notice>() {
+        return jdbc.query("select * from notices, users, authorities where users.username=notices.username and users.username=authorities.username and users.enabled=true", new RowMapper<Notice>() {
 
             public Notice mapRow(ResultSet resultSet, int i) throws SQLException {
-                Notice notice = new Notice();
+                User user = new User();
+                user.setUsername(resultSet.getString("username"));
+                user.setName(resultSet.getString("name"));
+                user.setEmail(resultSet.getString("email"));
+                user.setEnabled(true);
+                user.setAuthority(resultSet.getString("authority"));
 
+                Notice notice = new Notice();
                 notice.setId(resultSet.getInt("id"));
-                notice.setName(resultSet.getString("name"));
-                notice.setEmail(resultSet.getString("email"));
                 notice.setText(resultSet.getString("text"));
+                notice.setUser(user);
 
                 return notice;
             }
@@ -58,15 +63,20 @@ public class NoticesDAO {
 
         MapSqlParameterSource params = new MapSqlParameterSource("id", id);
 
-        return jdbc.queryForObject("select * from notices where id = :id", params, new RowMapper<Notice>() {
+        return jdbc.queryForObject("select * from notices, users, authorities where users.username=notices.username and users.username=authorities.username and users.enabled=true and notices.id = :id", params, new RowMapper<Notice>() {
 
             public Notice mapRow(ResultSet resultSet, int i) throws SQLException {
-                Notice notice = new Notice();
+                User user = new User();
+                user.setUsername(resultSet.getString("username"));
+                user.setName(resultSet.getString("name"));
+                user.setEmail(resultSet.getString("email"));
+                user.setEnabled(true);
+                user.setAuthority(resultSet.getString("authority"));
 
+                Notice notice = new Notice();
                 notice.setId(resultSet.getInt("id"));
-                notice.setName(resultSet.getString("name"));
-                notice.setEmail(resultSet.getString("email"));
                 notice.setText(resultSet.getString("text"));
+                notice.setUser(user);
 
                 return notice;
             }
@@ -77,7 +87,7 @@ public class NoticesDAO {
     public boolean updateNotice(Notice notice) {
         BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(notice);
 
-        return jdbc.update("update notices set name = :name, email = :email, text = :text where id = :id", params) == 1;
+        return jdbc.update("update notices set text = :text where id = :id", params) == 1;
     }
 
     public Boolean deleteNoticeById(int id) {

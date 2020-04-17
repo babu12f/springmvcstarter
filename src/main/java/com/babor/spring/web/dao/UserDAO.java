@@ -35,7 +35,7 @@ public class UserDAO {
 
         BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(user);
 
-        jdbc.update("insert into users (username, email, password, enabled) values (:username, :email, :password, :enabled)", params);
+        jdbc.update("insert into users (username, name, email, password, enabled) values (:username, :name, :email, :password, :enabled)", params);
 
         return jdbc.update("insert into authorities (username, authority) values (:username, :authority)", params) == 1;
     }

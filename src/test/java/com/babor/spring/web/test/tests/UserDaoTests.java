@@ -1,53 +1,52 @@
 package com.babor.spring.web.test.tests;
 
-import static org.junit.Assert.*;
 import com.babor.spring.web.dao.User;
 import com.babor.spring.web.dao.UserDAO;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.sql.DataSource;
+import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-@ActiveProfiles("dev")
-@ContextConfiguration(locations = {
-        "classpath:dao-context.xml",
-        "classpath:security-context.xml",
-        "classpath:datasource.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
-public class UserDaoTests {
+public class UserDaoTests extends BaseTests {
 
     @Autowired
     private UserDAO usersDao;
 
-    @Autowired
-    private DataSource dataSource;
-
     @Before
     public void init() {
-        JdbcTemplate jdbc = new JdbcTemplate(dataSource);
-
-        jdbc.execute("truncate users");
-        jdbc.execute("truncate authorities");
+        super.init();
     }
 
     @Test
     public void testCreateUser() {
-        User user = new User("babor", "babu@gmal.com", "secret", true, "ROLE_ADMIN");
+
+        User user = new User("admin", "shofiullah babor", "babu@gmal.com", "secret", true, "ROLE_ADMIN");
 
         assertTrue("User creation should return true", usersDao.createUser(user));
+
+        List<User> users = usersDao.getAll();
+
+        assertEquals("Number of users should be 1.", 1, users.size());
+
+        assertTrue("User should exist.", usersDao.exists(user.getUsername()));
+
+        assertEquals("Created user should be identical to retrived user", user, users.get(0));
+
     }
+
+//    @Test
+//    public void testCreateUser() {
+//        User user = new User("admin", "shofiullah babor", "babu@gmal.com", "secret", true, "ROLE_ADMIN");
+//
+//        assertTrue("User creation should return true", usersDao.createUser(user));
+//    }
 
     @Test
     public void testCountUser() {
-        User user = new User("babor", "babu@gmal.com", "secret", true, "ROLE_ADMIN");
+        User user = new User("admin", "shofiullah babor", "babu@gmal.com", "secret", true, "ROLE_ADMIN");
         usersDao.createUser(user);
 
         assertEquals("User count", 1, usersDao.getAll().size());
