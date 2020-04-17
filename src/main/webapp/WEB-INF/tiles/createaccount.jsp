@@ -11,6 +11,17 @@
 
             <!-- Text input-->
             <div class="form-group">
+                <label class="col-md-4 control-label" for="username">Name : </label>
+                <div class="col-md-4">
+                    <sf:input id="username" path="name" name="name" type="text"
+                              placeholder="Enter Your Fullname"
+                              class="form-control input-md"/>
+                    <sf:errors path="name" cssClass="alert-danger"/>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
                 <label class="col-md-4 control-label" for="username">Username : </label>
                 <div class="col-md-4">
                     <sf:input id="username" path="username" name="username" type="text"

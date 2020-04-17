@@ -13,8 +13,8 @@
         <c:forEach var="notice" items="${notices}">
             <tr>
                 <td>${notice.id}</td>
-                <td>${notice.name}</td>
-                <td>${notice.email}</td>
+                <td>${notice.user.name}</td>
+                <td>${notice.user.email}</td>
                 <td><c:out value="${notice.text}"/></td>
             </tr>
         </c:forEach>

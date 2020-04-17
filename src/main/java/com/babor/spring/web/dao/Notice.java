@@ -14,6 +14,7 @@ public class Notice {
     private String text;
 
     public Notice() {
+        this.user = new User();
     }
 
     public Notice(User user, String text) {

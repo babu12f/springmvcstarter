@@ -13,7 +13,7 @@ public class User {
     @Pattern(regexp="^\\w{4,}$")
     private String username;
 
-    @Size(min=4, max=15)
+    @Size(min=4, max=100)
     private String name;
 
     @Pattern(regexp="^\\S+$")

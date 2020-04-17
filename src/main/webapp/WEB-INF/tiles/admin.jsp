@@ -5,6 +5,7 @@
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
+            <th>Name</th>
             <th>Username</th>
             <th>Email</th>
             <th>Enabled</th>
@@ -14,6 +15,7 @@
         <tbody>
         <c:forEach var="user" items="${users}">
             <tr>
+                <td>${user.name}</td>
                 <td>${user.username}</td>
                 <td>${user.email}</td>
                 <td>${user.enabled}</td>

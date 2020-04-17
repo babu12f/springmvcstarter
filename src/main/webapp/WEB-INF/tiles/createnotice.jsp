@@ -7,26 +7,6 @@
             <!-- Form Name -->
             <legend>Create Notice</legend>
 
-            <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="name">Name</label>
-                <div class="col-md-4">
-                    <sf:input id="name" path="name" name="name" type="text" placeholder="Enter Your Name"
-                              class="form-control input-md"/>
-                    <sf:errors path="name" cssClass="alert-danger"/>
-                </div>
-            </div>
-
-            <!-- Text input-->
-            <div class="form-group">
-                <label class="col-md-4 control-label" for="email">Email</label>
-                <div class="col-md-4">
-                    <sf:input path="email" id="email" name="email" type="text" placeholder="Enter Your Email"
-                              class="form-control input-md"/>
-                    <sf:errors path="email" cssClass="alert-danger"/>
-                </div>
-            </div>
-
             <!-- Textarea -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="text">Notice</label>
