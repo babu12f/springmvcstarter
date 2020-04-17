@@ -6,7 +6,7 @@
         <fieldset>
             <!-- Form Name -->
             <legend>Create Notice</legend>
-
+            <sf:hidden path="id" name="id"/>
             <!-- Textarea -->
             <div class="form-group">
                 <label class="col-md-4 control-label" for="text">Notice</label>
@@ -20,9 +20,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label" for="createnotice"></label>
                 <div class="col-md-4">
-                    <button type="submit" id="createnotice" name="createnotice" class="btn btn-primary">Create
-                        Notice
-                    </button>
+                    <button type="submit" id="createnotice" name="createnotice" class="btn btn-primary">Save Notice</button>
                 </div>
             </div>
 

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,17 +22,13 @@ public class HomeController {
 
     @RequestMapping("/")
     public String showHome(Model model, Principal principal) {
-        List<Notice> notices = noticesService.getCurrent();
-
-        model.addAttribute("notices", notices);
-
-        boolean hasNotice = false;
+        List<Notice> notices = new ArrayList<>();
 
         if (principal != null) {
-            hasNotice = noticesService.hasNotices(principal.getName());
+            notices = noticesService.getCurrentUserNotices(principal.getName());
         }
 
-        model.addAttribute("hasNotice", hasNotice);
+        model.addAttribute("notices", notices);
 
         return "home";
     }

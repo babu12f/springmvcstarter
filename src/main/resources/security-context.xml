@@ -36,6 +36,7 @@
 <!--        <security:intercept-url pattern="/admin" access="permitAll"/>-->
         <security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
         <security:intercept-url pattern="/createnotice" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/editnotice/{id}" access="isAuthenticated()"/>
         <security:intercept-url pattern="/docreate" access="isAuthenticated()"/>
         <security:intercept-url pattern="/createaccount" access="permitAll()"/>
         <security:intercept-url pattern="/" access="permitAll()"/>

@@ -8,10 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -66,8 +63,16 @@ public class NoticesController {
 
         notice.getUser().setUsername(logedInUser.getName());
 
-        noticesService.createNotice(notice);
+        noticesService.createOrUpdateNotice(notice, logedInUser);
 
         return "noticecreated";
+    }
+
+    @RequestMapping("/editnotice/{id}")
+    public String editNotice(@PathVariable("id") int id, Model model) {
+
+        model.addAttribute("notice", noticesService.getNoticeById(id));
+
+        return "createnotice";
     }
 }
