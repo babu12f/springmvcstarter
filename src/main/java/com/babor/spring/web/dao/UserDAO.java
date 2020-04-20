@@ -8,11 +8,13 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 @Component("userDao")
 @Transactional
 public class UserDAO {
@@ -52,6 +54,6 @@ public class UserDAO {
 
     @SuppressWarnings({"UnnecessaryLocalVariable", "unchecked"})
     public List<User> getAll() {
-        return session().createQuery("from User").list();
+        return session().createQuery("from User3").list();
     }
 }

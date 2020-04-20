@@ -3,11 +3,13 @@ package com.babor.spring.web.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 @Component("noticeDao")
 public class NoticesDAO {
     private NamedParameterJdbcTemplate jdbc;
