@@ -27,11 +27,6 @@ public class UserDAO {
     public UserDAO() {
     }
 
-//    @Autowired
-//    public UserDAO(DataSource dataSource) {
-//        this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-//    }
-
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -41,14 +36,11 @@ public class UserDAO {
         return sessionFactory.getCurrentSession();
     }
 
-    @Transactional
-    public boolean createUser(User user) {
+    public void createUser(User user) {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(user);
-
-        return jdbc.update("insert into users (username, name, email, password, enabled, authority) values (:username, :name, :email, :password, :enabled, :authority)", params) == 1;
+        session().save(user);
     }
 
 

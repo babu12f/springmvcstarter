@@ -34,7 +34,7 @@ public class NoticesDAOTests extends  BaseTests {
 
         User user = new User("admin", "shofiullah babor", "babu@gmal.com", "secret", true, "ROLE_ADMIN");
 
-        assertTrue("User creation should return true", usersDao.createUser(user));
+        usersDao.createUser(user);
 
         Notice notice = new Notice(user, "This is a test notice.");
 

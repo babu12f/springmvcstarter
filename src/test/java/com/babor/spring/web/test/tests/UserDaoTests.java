@@ -25,7 +25,7 @@ public class UserDaoTests extends BaseTests {
 
         User user = new User("admin", "shofiullah babor", "babu@gmal.com", "secret", true, "ROLE_ADMIN");
 
-        assertTrue("User creation should return true", usersDao.createUser(user));
+        usersDao.createUser(user);
 
         List<User> users = usersDao.getAll();
 
