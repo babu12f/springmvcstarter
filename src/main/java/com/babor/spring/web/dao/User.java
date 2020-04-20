@@ -3,14 +3,19 @@ package com.babor.spring.web.dao;
 import com.babor.spring.web.validation.ValidEmail;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User {
     @NotBlank
     @Size(min=4, max=15)
     @Pattern(regexp="^\\w{4,}$")
+    @Id
     private String username;
 
     @Size(min=4, max=100)
@@ -24,6 +29,7 @@ public class User {
     private String email;
 
     private boolean enabled = false;
+
     private String authority;
 
     public User() {

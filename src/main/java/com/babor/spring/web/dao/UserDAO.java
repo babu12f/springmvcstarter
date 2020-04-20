@@ -1,31 +1,44 @@
 package com.babor.spring.web.dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.*;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 @Component("userDao")
+@Transactional
 public class UserDAO {
     private NamedParameterJdbcTemplate jdbc;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     public UserDAO() {
     }
 
+//    @Autowired
+//    public UserDAO(DataSource dataSource) {
+//        this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+//    }
+
     @Autowired
-    public UserDAO(DataSource dataSource) {
+    public void setDataSource(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+    }
+
+    public Session session() {
+        return sessionFactory.getCurrentSession();
     }
 
     @Transactional
@@ -35,9 +48,7 @@ public class UserDAO {
 
         BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(user);
 
-        jdbc.update("insert into users (username, name, email, password, enabled) values (:username, :name, :email, :password, :enabled)", params);
-
-        return jdbc.update("insert into authorities (username, authority) values (:username, :authority)", params) == 1;
+        return jdbc.update("insert into users (username, name, email, password, enabled, authority) values (:username, :name, :email, :password, :enabled, :authority)", params) == 1;
     }
 
 
@@ -47,8 +58,8 @@ public class UserDAO {
 
     }
 
+    @SuppressWarnings({"UnnecessaryLocalVariable", "unchecked"})
     public List<User> getAll() {
-        return jdbc.query("select * from users, authorities where users.username=authorities.username",
-                BeanPropertyRowMapper.newInstance(User.class));
+        return session().createQuery("from User").list();
     }
 }
