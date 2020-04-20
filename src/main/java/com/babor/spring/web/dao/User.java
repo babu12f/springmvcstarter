@@ -12,20 +12,20 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "users")
 public class User {
-    @NotBlank
-    @Size(min=4, max=15)
-    @Pattern(regexp="^\\w{4,}$")
+    @NotBlank(groups = {FormValidationGroup.class, PersistenceValidationGroup.class})
+    @Size(min=4, max=15, groups = {FormValidationGroup.class, PersistenceValidationGroup.class})
+    @Pattern(regexp="^\\w{4,}$", groups = {FormValidationGroup.class, PersistenceValidationGroup.class})
     @Id
     private String username;
 
-    @Size(min=4, max=100)
+    @Size(min=4, max=100, groups = {FormValidationGroup.class, PersistenceValidationGroup.class})
     private String name;
 
-    @Pattern(regexp="^\\S+$")
-    @Size(min=4)
+    @Pattern(regexp="^\\S+$", groups = {FormValidationGroup.class})
+    @Size(min=4, max = 15, groups = {FormValidationGroup.class})
     private String password;
 
-    @ValidEmail
+    @ValidEmail(groups = {FormValidationGroup.class, PersistenceValidationGroup.class})
     private String email;
 
     private boolean enabled = false;
