@@ -5,19 +5,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 @Transactional
 @Component("noticeDao")
 public class NoticesDAO {
-    private NamedParameterJdbcTemplate jdbc;
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -29,18 +26,6 @@ public class NoticesDAO {
         return sessionFactory.getCurrentSession();
     }
 
-    @Autowired
-    public NoticesDAO(DataSource dataSource) {
-        this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-    }
-
-    @Transactional
-    public int[] createNotice(List<Notice> notices) {
-        SqlParameterSource[] params = SqlParameterSourceUtils.createBatch(notices.toArray());
-
-        return jdbc.batchUpdate("insert into notices (username text) values (:username, :text)", params);
-    }
-
     public void createNotice(Notice notice) {
         session().save(notice);
     }
@@ -48,40 +33,34 @@ public class NoticesDAO {
     public List<Notice> getNotices() {
         Criteria criteria = session().createCriteria(Notice.class);
 
-        criteria.createAlias("user", "u")
-                .add(Restrictions.eq("u.enabled", true));
-
-        return criteria.list();
+        return criteria.createAlias("user", "u")
+                .add(Restrictions.eq("u.enabled", true))
+                .list();
     }
 
     public Notice getNoticeById(int id) {
+        Criteria criteria = session().createCriteria(Notice.class);
 
-        MapSqlParameterSource params = new MapSqlParameterSource("id", id);
-
-        String sql = "select * from notices, users where users.username=notices.username " +
-                "and users.enabled=true and notices.id = :id";
-
-        return jdbc.queryForObject(sql, params, new NoticeRowMapper());
+        return (Notice) criteria
+                .add(Restrictions.idEq(id))
+                .uniqueResult();
     }
 
     public List<Notice> getNoticeByUsername(String username) {
+        Criteria criteria = session().createCriteria(Notice.class);
 
-        String sql = "select * from notices, users where users.username=notices.username " +
-                "and users.enabled=true and notices.username = :username";
-
-        return jdbc.query(sql, new MapSqlParameterSource("username", username), new NoticeRowMapper());
+        return criteria.createAlias("user", "u")
+                .add(Restrictions.eq("u.enabled", true))
+                .add(Restrictions.eq("u.username", username))
+                .list();
     }
 
-    public boolean updateNotice(Notice notice) {
-        BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(notice);
-
-        return jdbc.update("update notices set text = :text where id = :id", params) == 1;
+    public void updateNotice(Notice notice) {
+        session().update(notice);
     }
 
-    public Boolean deleteNoticeById(int id) {
-        MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", id);
-
-        return jdbc.update("delete from notices where id = :id", params) == 1;
+    public void deleteNoticeById(int id) {
+        Notice notice = getNoticeById(id);
+        session().delete(notice);
     }
 }

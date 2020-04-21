@@ -50,7 +50,7 @@ public class NoticesDAOTests extends  BaseTests {
         notice = notices.get(0);
 
         notice.setText("Updated offer text.");
-        assertTrue("Notice update should return true", noticesDAO.updateNotice(notice));
+        noticesDAO.updateNotice(notice);
 
         Notice updated = noticesDAO.getNoticeById(notice.getId());
 
