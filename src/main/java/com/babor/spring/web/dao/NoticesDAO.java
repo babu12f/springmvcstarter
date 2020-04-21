@@ -1,5 +1,7 @@
 package com.babor.spring.web.dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.Component;
@@ -10,11 +12,19 @@ import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
+@Transactional
 @Component("noticeDao")
 public class NoticesDAO {
     private NamedParameterJdbcTemplate jdbc;
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     public NoticesDAO() {
+    }
+
+    public Session session() {
+        return sessionFactory.getCurrentSession();
     }
 
     @Autowired
@@ -29,16 +39,14 @@ public class NoticesDAO {
         return jdbc.batchUpdate("insert into notices (username text) values (:username, :text)", params);
     }
 
-    public boolean createNotice(Notice notice) {
-        BeanPropertySqlParameterSource params = new BeanPropertySqlParameterSource(notice);
-
-        return jdbc.update("insert into notices (username, text) values (:username, :text)", params) == 1;
+    public void createNotice(Notice notice) {
+        session().save(notice);
     }
 
     public List<Notice> getNotices() {
 
-        String sql = "select * from notices, users, authorities where users.username=notices.username " +
-                "and users.username=authorities.username and users.enabled=true";
+        String sql = "select * from notices, users where users.username=notices.username " +
+                "and users.enabled=true";
 
         return jdbc.query(sql,new NoticeRowMapper());
     }
@@ -47,16 +55,16 @@ public class NoticesDAO {
 
         MapSqlParameterSource params = new MapSqlParameterSource("id", id);
 
-        String sql = "select * from notices, users, authorities where users.username=notices.username " +
-                "and users.username=authorities.username and users.enabled=true and notices.id = :id";
+        String sql = "select * from notices, users where users.username=notices.username " +
+                "and users.enabled=true and notices.id = :id";
 
         return jdbc.queryForObject(sql, params, new NoticeRowMapper());
     }
 
     public List<Notice> getNoticeByUsername(String username) {
 
-        String sql = "select * from notices, users, authorities where users.username=notices.username " +
-                "and users.username=authorities.username and users.enabled=true and notices.username = :username";
+        String sql = "select * from notices, users where users.username=notices.username " +
+                "and users.enabled=true and notices.username = :username";
 
         return jdbc.query(sql, new MapSqlParameterSource("username", username), new NoticeRowMapper());
     }

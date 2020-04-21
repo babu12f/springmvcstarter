@@ -1,5 +1,6 @@
 package com.babor.spring.web.controllers;
 
+import com.babor.spring.web.dao.FormValidationGroup;
 import com.babor.spring.web.dao.Notice;
 import com.babor.spring.web.services.NoticesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -55,7 +57,7 @@ public class NoticesController {
     }
 
     @RequestMapping(value = "/docreate", method = RequestMethod.POST)
-    public String doCreate(Model model, @Valid Notice notice, BindingResult result, Principal logedInUser,
+    public String doCreate(Model model, @Validated(value = FormValidationGroup.class) Notice notice, BindingResult result, Principal logedInUser,
                            @RequestParam(value = "delete", required = false) String delete) {
 
         if( result.hasErrors() ) {

@@ -1,16 +1,23 @@
 package com.babor.spring.web.dao;
 
-import com.babor.spring.web.validation.ValidEmail;
-
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
+@Entity
+@Table(name = "notices")
 public class Notice {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @ManyToOne
+    @JoinColumn(name = "username")
     private User user;
 
-    @Size(min = 20, max = 255, message = "Notice must be between 20 and 255 characters")
+    @Size(min = 20, max = 255,
+            message = "Notice must be between 20 and 255 characters",
+            groups = {FormValidationGroup.class, PersistenceValidationGroup.class})
     private String text;
 
     public Notice() {

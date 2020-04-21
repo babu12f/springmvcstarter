@@ -38,7 +38,7 @@ public class NoticesDAOTests extends  BaseTests {
 
         Notice notice = new Notice(user, "This is a test notice.");
 
-        assertTrue("Notice creation should return true", noticesDAO.createNotice(notice));
+        noticesDAO.createNotice(notice);
 
         List<Notice> notices = noticesDAO.getNotices();
 
@@ -58,7 +58,7 @@ public class NoticesDAOTests extends  BaseTests {
 
         Notice notice2 = new Notice(user, "This is a test notice. Hello from test notice.");
 
-        assertTrue("Notice crecation should return true", noticesDAO.createNotice(notice2));
+        noticesDAO.createNotice(notice2);
 
         List<Notice> userNotices = noticesDAO.getNoticeByUsername(user.getUsername());
 
