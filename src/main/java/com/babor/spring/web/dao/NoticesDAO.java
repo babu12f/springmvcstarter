@@ -1,7 +1,9 @@
 package com.babor.spring.web.dao;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.stereotype.Component;
@@ -44,11 +46,12 @@ public class NoticesDAO {
     }
 
     public List<Notice> getNotices() {
+        Criteria criteria = session().createCriteria(Notice.class);
 
-        String sql = "select * from notices, users where users.username=notices.username " +
-                "and users.enabled=true";
+        criteria.createAlias("user", "u")
+                .add(Restrictions.eq("u.enabled", true));
 
-        return jdbc.query(sql,new NoticeRowMapper());
+        return criteria.list();
     }
 
     public Notice getNoticeById(int id) {
