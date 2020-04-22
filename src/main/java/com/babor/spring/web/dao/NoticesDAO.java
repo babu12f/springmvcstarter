@@ -1,6 +1,7 @@
 package com.babor.spring.web.dao;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -41,7 +42,8 @@ public class NoticesDAO {
     public Notice getNoticeById(int id) {
         Criteria criteria = session().createCriteria(Notice.class);
 
-        return (Notice) criteria
+        return (Notice) criteria.createAlias("user", "u")
+                .add(Restrictions.eq("u.enabled", true))
                 .add(Restrictions.idEq(id))
                 .uniqueResult();
     }
@@ -59,8 +61,14 @@ public class NoticesDAO {
         session().update(notice);
     }
 
-    public void deleteNoticeById(int id) {
-        Notice notice = getNoticeById(id);
-        session().delete(notice);
+    @SuppressWarnings("JpaQlInspection")
+    public boolean deleteNoticeById(int id) {
+//        Notice notice = getNoticeById(id);
+//        session().delete(notice);
+
+        Query query = session().createQuery("delete from Notice where id=:id");
+        query.setInteger("id", id);
+
+        return query.executeUpdate() == 1;
     }
 }
